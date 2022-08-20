@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 리스트</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="./resources/js/validation.js"></script>
+</head>
+<style>
+    .layout {
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+</style>
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">
+                거래 게시판
+            </h1>
+        </div>
+    </div>
+    <div class="layout">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="20%" scope="col" class="text-center">글번호</th>
+                    <th scope="col">제목</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="board : ${list}">
+                    <td scope="row" class="text-center" th:text="${board.id}">1</td>
+                    <td>
+                        <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li th:if="${startPage > 1}" class="page-item">
+                    <a class="page-link" th:href="@{/board/list(page=${nowPage - 6}, searchKeyword = ${param.searchKeyword})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <li th:if="${page != nowPage}" class="page-item">
+                        <a class="page-link" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+                    </li>
+                    <li th:unless="${page != nowPage}" class="page-item active">
+                        <a class="page-link" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+                    </li>
+                </th:block>
+
+                <li th:if="${(endPage + 3) <= totalPage}" class="page-item">
+                    <a class="page-link" th:href="@{/board/list(page = ${nowPage + 4}, searchKeyword = ${param.searchKeyword})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!--<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+            <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+            <strong th:if="${page == nowPage}" th:text="${page}" style="color : brown"></strong>
+        </th:block>-->
+        <form class="d-flex" th:action="@{/board/list}" method="get">
+            <input class="form-control me-2" type="search" name="searchKeyword" placeholder="검색어를 입력하세요."aria-label="검색어를 입력하세요." style="width: 90%;">
+            <button class="btn btn-outline-success" type="submit">검색</button>
+        </form>
+    </div>
+</body>
+</html>

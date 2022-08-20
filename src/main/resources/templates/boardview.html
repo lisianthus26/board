@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="./resources/js/validation.js"></script>
+</head>
+<style>
+    .layout {
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+</style>
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">
+                상세 페이지
+            </h1>
+        </div>
+    </div>
+    <div class="layout">
+    <h1 th:text="${board.title}">제목입니다.</h1>
+    <p th:text="${board.area}">거래 지역</p>
+    <p th:text="${board.price}">거래 가격</p>
+    <p th:text="${board.content}">내용이 들어갈 부분</p>
+    <a th:href="@{${board.filepath}}">다운로드</a>
+    <a th:href="@{/board/delete(id=${board.id})}">삭제</a>
+    <a th:href="@{/board/modify/{id}(id=${board.id})}">수정</a>
+    </div>
+</body>
+</html>

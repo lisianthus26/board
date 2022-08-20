@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 작성폼</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="./resources/js/validation.js"></script>
+</head>
+<style>
+
+</style>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3">
+            상품 등록
+        </h1>
+    </div>
+</div>
+<div class="container-fluid row justify-content-center align-items-center">
+    <form th:action="@{/board/update/{id}(id = ${board.id})}" method="post" enctype="multipart/form-data"
+          class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-sm-4">제목/상품명</label>
+            <div class="col-sm-8">
+                <input name="title" type="text" th:value="${board.title}" placeholder="제목" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">거래 지역</label>
+            <div class="col-sm-8">
+                <input name="area" type="text" th:value="${board.area}" placeholder="OO시 OO구 OO동" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">거래 가격</label>
+            <div class="col-sm-8">
+                <input name="price" type="text" th:value="${board.price}" placeholder="가격" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">상세 내용</label>
+            <div class="col-sm-8">
+                <textarea name="content" th:text="${board.content}" cols="40" rows="5" placeholder="내용" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">이미지 선택</label>
+            <div class="col-sm-8">
+                <input name="file" type="file" class="form-control-file">
+            </div>
+        </div>
+        <div class="form-group row">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">작성</button>
+        </div>
+    </form>
+</div>
+<!--<div class="layout">
+    <form th:action="@{/board/update/{id}(id = ${board.id})}" method="post">
+        <input name="title" type="text" th:value="${board.title}">
+        <input name="area" type="text" th:value="${board.area}">
+        <input name="price" type="text" th:value="${board.price}">
+        <textarea name="content" th:text="${board.content}"></textarea>
+        <button type="submit">수정</button>
+    </form>
+</div>-->
+</body>
+</html>
